@@ -1,0 +1,30 @@
+.techs {
+    padding-top: 101px;
+    padding-bottom: 100px;
+    background-color: #F2F2F2;
+}
+
+.techs_container {
+    text-align: center;
+}
+
+.techs_title {
+font-weight: 400;
+font-size: 50px;
+line-height: 58px;
+letter-spacing: -0.04em;
+margin: 90px 0 0;
+padding: 0;
+}
+
+.techs_subtitle {
+    margin: 26px auto 100px;
+    max-width: 460px;
+    letter-spacing: -0.04em;
+}
+
+.techs_cards {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}

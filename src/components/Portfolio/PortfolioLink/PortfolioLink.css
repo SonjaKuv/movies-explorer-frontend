@@ -1,0 +1,28 @@
+.portfolio-link {
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+}
+
+.portfolio-link_container {
+    height: 68px;
+    border-bottom: 1px solid #E8E8E8;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.portfolio-link_title {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 50px;
+    letter-spacing: -0.04em;
+    margin: 0;
+    padding: 0;
+}
+
+.portfolio-link_icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+}

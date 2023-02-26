@@ -1,7 +1,6 @@
 import React from 'react';
 import './Header.css';
 import logo from '../../images/logo.png';
-import Praktikum from '../../images/Praktikum.png';
 
 const Header = () => {
     return (
@@ -19,10 +18,6 @@ const Header = () => {
                     </a>
                 </div>
             </nav>
-            <div className='header_banner'>
-                <img className='header_image' src={Praktikum} />
-                <h1 className='header_title'>Учебный проект студента факультета Веб-разработки.</h1>
-            </div>
         </header>
     )
 }

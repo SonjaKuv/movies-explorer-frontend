@@ -1,0 +1,16 @@
+.about-card {
+    max-width: 50%;
+}
+
+.about-card_title {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    margin: 0;
+    padding: 0;
+}
+
+.about-card_description {
+    margin: 26px 0 0;
+}

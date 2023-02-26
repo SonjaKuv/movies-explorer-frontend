@@ -1,0 +1,15 @@
+.about {
+    padding-top: 111px;
+    padding-bottom: 96px;
+}
+
+.about_container {
+    display: flex;
+    gap: 53px;
+    margin: 70px 0 110.5px;
+}
+
+.about_week-container {
+    display: flex;
+    margin: 0;  
+}

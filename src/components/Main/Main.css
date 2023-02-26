@@ -1,0 +1,26 @@
+.main {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.section {
+    color: #000;
+    padding: 0 70px 0;
+}
+
+.title {
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+    margin: 0;
+    padding: 0;
+}
+
+.subtitle {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+}

@@ -1,0 +1,31 @@
+.week {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.week_title-one {
+    background: #2BE080;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 9px 84px 10px;
+    margin: 0;
+}
+
+.week_title-four {
+    background: #F2F2F2;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 9px 424.5px 10px;
+    margin: 0;
+}
+
+.week_subtitle {
+    color: #A0A0A0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+}
+
