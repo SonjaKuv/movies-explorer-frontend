@@ -1,0 +1,17 @@
+.profile-info {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    padding: 16.5px 0 17px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.profile-info:last-child {
+    border-bottom: none;
+}
+
+.profile-info_title {
+    font-weight: 500;
+}

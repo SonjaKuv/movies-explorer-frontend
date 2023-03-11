@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './AboutProject.css'
-import SectionTitle from '../Main/Title/SectionTitle';
+import SectionTitle from '../SectionTitle/SectionTitle';
 import AboutCard from './AboutCard/AboutCard';
 import AboutWeek from './AboutWeek/AboutWeek';
 
@@ -18,8 +18,8 @@ export default class AboutProject extends Component {
                         description='У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.' />
                 </div>
                 <div className='about_week-container'>
-                    <AboutWeek class='week_title-one' title='1 неделя' subtitle='Back-end' />
-                    <AboutWeek class='week_title-four' title='4 недели' subtitle='Front-end' />
+                    <AboutWeek className='week_title-one' title='1 неделя' subtitle='Back-end' />
+                    <AboutWeek className='week_title-four' title='4 недели' subtitle='Front-end' />
                 </div>
             </section>
         )

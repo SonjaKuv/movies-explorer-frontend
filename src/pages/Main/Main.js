@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './Main.css';
-import Promo from "../Promo/Promo";
-import NavBar from "../NavBar/NavBar";
-import AboutProject from "../AboutProject/AboutProject";
-import Techs from "../Techs/Techs";
-import AboutMe from "../AboutMe/AboutMe";
-import Portfolio from "../Portfolio/Portfolio";
+import Promo from "../../components/Promo/Promo";
+import NavBar from "../../components/NavBar/NavBar";
+import AboutProject from "../../components/AboutProject/AboutProject";
+import Techs from "../../components/Techs/Techs";
+import AboutMe from "../../components/AboutMe/AboutMe";
+import Portfolio from "../../components/Portfolio/Portfolio";
 
 export class Main extends Component {
     render() {

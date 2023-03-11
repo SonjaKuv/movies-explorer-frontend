@@ -1,0 +1,21 @@
+.movies-list {
+       text-align: center;
+    padding-top: 70px;
+    padding-bottom: 80px;
+}
+
+.movies-list_container {
+     display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30.8px 22.5px;
+}
+
+.movies-list_button {
+    background: #FDFDFD;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    margin: 80px 0 0;
+    padding: 11px 147px 8px 148px;
+    border: 1px solid #E8E8E8;
+}

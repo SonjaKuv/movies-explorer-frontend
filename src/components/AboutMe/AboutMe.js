@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './AboutMe.css';
-import SectionTitle from '../Main/Title/SectionTitle';
+import SectionTitle from '../SectionTitle/SectionTitle';
 import photo from '../../images/photo.png';
 
 export default class AboutMe extends Component {

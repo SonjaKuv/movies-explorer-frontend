@@ -1,7 +1,7 @@
 .promo {
     width: 100%;
     background-color: #5C5C5C;
-    padding-top: 59px;
+    padding-top: 77px;
     padding-bottom: 118.5px;
     box-sizing: border-box;
     position: relative;
@@ -18,5 +18,6 @@
     max-width: 730px;
     position: absolute;
     left: 21.48%;
+    right: 21.48%;
     top: 32.1%;
 }

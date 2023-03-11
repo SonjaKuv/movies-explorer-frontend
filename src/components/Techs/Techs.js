@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './Techs.css';
-import SectionTitle from '../Main/Title/SectionTitle';
+import SectionTitle from '../SectionTitle/SectionTitle';
 import TechsCard from './TechsCard/TechsCard';
 
 
