@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Register.css';
-import Form from '../Form/Form';
-import Input from '../Input/Input';
+import Form from '../../components/Form/Form';
+import Input from '../../components/Input/Input';
 
-export default class Register extends Component {
-    render() {
+function Register() {
         return (
             <Form title="Добро пожаловать!" button="Зарегистрироваться" text="Уже зарегистрированы?" 
             route="/sign-in" link="Войти">
@@ -13,5 +12,6 @@ export default class Register extends Component {
                 <Input name="password" label="Пароль" type="password" value="dgdhdhdsggsdgd" isError={true} />
             </Form>
         )
-    }
 }
+
+export default Register

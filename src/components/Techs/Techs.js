@@ -1,18 +1,17 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './Techs.css';
 import SectionTitle from '../SectionTitle/SectionTitle';
-import TechsCard from './TechsCard/TechsCard';
+import TechsCard from '../TechsCard/TechsCard';
 
 
-export default class Techs extends Component {
-    render() {
+function Techs() {
         return (
             <section className='section techs'>
                 <SectionTitle title='Технологии' />
-                <div className='techs_container'>
-                    <h2 className='techs_title'>7 технологий</h2>
-                    <p className='subtitle techs_subtitle'>На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
-                    <div className='techs_cards'>
+                <div className='techs__container'>
+                    <h2 className='techs__title'>7 технологий</h2>
+                    <p className='subtitle techs__subtitle'>На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
+                    <div className='techs__cards'>
                         <TechsCard name='HTML' />
                         <TechsCard name='CSS' />
                         <TechsCard name='JS' />
@@ -24,5 +23,6 @@ export default class Techs extends Component {
                 </div>
             </section>
         )
-    }
 }
+
+export default Techs

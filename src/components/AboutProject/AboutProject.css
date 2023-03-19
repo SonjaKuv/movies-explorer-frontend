@@ -3,13 +3,42 @@
     padding-bottom: 96px;
 }
 
-.about_container {
+.about__container {
     display: flex;
     gap: 53px;
     margin: 70px 0 110.5px;
 }
 
-.about_week-container {
-    display: flex;
-    margin: 0;  
+.about__week-container {
+    display: grid;
+    margin: 0; 
+    grid-template-columns: 1fr 4fr; 
+}
+
+@media screen and (max-width: 768px) {
+.about {
+    padding: 91px 50px 76px;
+}
+.about__container {
+    gap: 37px;
+    margin-bottom: 92px;
+}
+
+.about__week-container {
+    grid-template-columns: 1.05fr 4fr;
+}
+}
+
+@media screen and (max-width: 550px) {
+.about {
+    padding: 70px 17px 76px;
+}
+
+.about__container {
+    flex-direction: column;
+    margin: 62px 0 60px;
+    gap: 56px;
+
+}
+
 }

@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Profile.css';
 import ProfileInfo from '../../components/ProfileInfo/ProfileInfo';
 
-export default class Profile extends Component {
-  render() {
+function Profile() {
     return (
       <main className='main profile'>
-        <h1 className='profile_title'>Привет, Виталий!</h1>
-        <div className='profile_container'>
+        <h1 className='profile__title'>Привет, Виталий!</h1>
+        <div className='profile__container'>
           <ProfileInfo title='Имя' info='Виталий' />
           <ProfileInfo title='E-mail' info='pochta@yandex.ru' />
         </div>
-        <div className='profile_container profile_buttons-container'>
-          <button className='profile_button'>Редактировать</button>
-          <button className='profile_button profile_button_type_sign-out'>Выйти из аккаунта</button>
+        <div className='profile__container profile__buttons-container'>
+          <button className='profile__button button'>Редактировать</button>
+          <button className='profile__button button profile__button_type_sign-out'>Выйти из аккаунта</button>
         </div>
       </main>
     )
-  }
 }
+
+export default Profile

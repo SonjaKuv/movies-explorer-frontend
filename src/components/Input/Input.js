@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Input.css';
 
-export default class Input extends Component {
-    render() {
-        const inputClass = this.props.isError ? 'input_field error' : 'input_field';
-        const errorClass = this.props.isError ? 'input_error visible' : 'input_error'
+function Input({isError, name, label, type, value}) {
+        const inputClass = isError ? 'input__field error' : 'input__field';
+        const errorClass = isError ? 'input__error visible' : 'input__error'
         return (
-            <label className='input' for={this.props.name}>
-                {this.props.label}
-                <input name={this.props.name} type={this.props.type} value={this.props.value} className={inputClass} required />
+            <label className='input' for={name}>
+                {label}
+                <input name={name} type={type} value={value} className={inputClass} required />
                 <span className={errorClass}>Что-то пошло не так...</span>
             </label>
         )
-    }
 }
+
+export default Input

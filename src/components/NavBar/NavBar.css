@@ -6,7 +6,7 @@
     color: #000;
 }
 
-.navbar_list {
+.navbar__list {
     list-style: none;
     display: flex;
     justify-content: center;
@@ -15,9 +15,25 @@
     padding: 0;
 }
 
-.navbar_link {
+.navbar__button {
 font-weight: 500;
 font-size: 13px;
 line-height: 16px;
+border: none;
 border-bottom: 1.6px solid #000;
+background: none;
+}
+
+@media screen and (max-width: 550px) {
+.navbar {
+    padding: 23.5px 40px 24.5px;
+}
+
+.navbar__button {
+    font-size: 11px;
+}
+
+.navbar_list {
+    gap: 25px;
+}
 }

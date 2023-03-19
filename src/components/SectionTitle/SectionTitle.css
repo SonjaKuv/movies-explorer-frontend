@@ -2,7 +2,7 @@
     border-bottom: 1px solid #000;
 }
 
-.section-title_text {
+.section-title__text {
     margin: 0 0 22px;
     padding: 0;
     font-weight: 400;
@@ -11,3 +11,11 @@
     letter-spacing: -0.04em;
     color: #000000;
   }
+
+  @media screen and (max-width: 550px) {
+  .section-title__text {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 0 26px;
+  }
+}

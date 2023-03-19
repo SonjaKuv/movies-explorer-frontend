@@ -2,11 +2,11 @@ import React from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-function Layout({ children }) {
+function Layout({ onClickBurger, isBurgerOpened, children }) {
 
     return (
         <>
-            <Header />
+            <Header onClickBurger={onClickBurger} isBurgerOpened={isBurgerOpened}/>
             {children}
             <Footer />
         </>

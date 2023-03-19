@@ -4,7 +4,7 @@
     font-weight: 400;
     font-size: 11px;
     line-height: 13px;
-    padding: 16.5px 0 17px;
+    padding: 16.5px 0 15px;
     border-bottom: 1px solid #e8e8e8;
 }
 
@@ -12,6 +12,23 @@
     border-bottom: none;
 }
 
-.profile-info_title {
+.profile-info__title {
     font-weight: 500;
+}
+
+.profile-info__input {
+    border: none;
+    text-align: right;
+    margin-right: -2px;
+}
+
+.profile-info__input:focus {
+    outline:none;
+}
+
+@media screen and (max-width: 768px) { 
+.profile-info {
+    padding: 18.5px 0 15px;
+}
+
 }

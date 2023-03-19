@@ -11,14 +11,14 @@
     color: #fff;
 }
 
-.header_navigation {
+.header__navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 18px;
 }
 
-.header_link {
+.header__link {
     cursor: pointer;
     font-weight: 500;
     font-size: 12px;
@@ -27,12 +27,12 @@
     padding: 0;
 }
 
-.header_link_type_register {
+.header__link_type_register {
     margin-top: 4px;
     color: #fff;
 }
 
-.header_link_type_films {
+.header__link_type_films {
     color: #000;
     font-weight: 400;
     font-size: 13px;
@@ -40,7 +40,13 @@
     margin-top: 11px;
 }
 
-.header_button {
+.header__link_type_is-active {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.header__button {
     background: #2BE080;
     border-radius: 3px;
     border: none;
@@ -48,20 +54,20 @@
     padding: 9px 20px;
 }
 
-.header_link-container {
+.header__link-container {
     display: flex;
     gap: 30px;
 }
 
-.header_link-container_type_film {
+.header__link-container_type_film {
     gap: 45px;
 }
 
-.header_link-container_type_user-links {
+.header__link-container_type_user-links {
     gap: 18px;
 }
 
-.header_profile-button {
+.header__profile-button {
     display: flex;
     display: flex;
     align-items: center;
@@ -78,9 +84,43 @@
     margin-top: -4px;
 }
 
-.header_profile-icon {
+.header__profile-icon {
     background-color: #F9F9F9;
     border: none;
     border-radius: 50%;
     padding: 7px;
+}
+
+@media screen and (max-width: 768px) {
+.header {
+ padding: 18px 31px 18px 30px;
+}
+
+.header__link_type_is-active {
+    font-size: 22px;
+line-height: 27px;
+border-bottom: 2px solid #000;
+}
+}
+
+@media screen and (max-width: 550px) {
+    .header{
+        padding: 18px 14.5px 18px 14px;
+    }
+
+    .header__link {
+        font-size: 10px;
+    }
+
+    .header__link_type_register {
+        margin-top: 1px;
+    }
+
+    .header_button {
+        padding: 7px 12px;
+    }
+
+    .header__link-container {
+        gap: 15px;
+    }
 }

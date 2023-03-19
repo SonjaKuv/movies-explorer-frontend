@@ -8,7 +8,7 @@
     margin: 0 0 -2px;
 }
 
-.input_field {
+.input__field {
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;
@@ -20,7 +20,7 @@
     margin: 10px 0 0
 }
 
-.input_error {
+.input__error {
     margin: 10px 0 0;
     color: #EE3465;
     visibility: hidden;

@@ -3,7 +3,7 @@
     padding-bottom: 105px;
 }
 
-.portfolio_title {
+.portfolio__title {
     font-weight: 400;
     font-size: 18px;
     line-height: 20px;
@@ -12,9 +12,29 @@
     padding: 0;
 }
 
-.portfolio_container {
+.portfolio__container {
     display: flex;
     flex-direction: column;
     gap: 21px;
     margin-top: 50px;
+}
+
+@media screen and (max-width: 768px) {
+    .portfolio {
+        padding: 45px 50px 71px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .portfolio {
+        padding: 24px 14px 49px;
+    }
+.portfolio__title {
+    font-size: 14px;
+line-height: 20px;
+}
+
+.portfolio__container {
+    margin-top: 39px;
+}
 }

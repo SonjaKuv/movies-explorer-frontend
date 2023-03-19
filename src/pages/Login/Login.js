@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Login.css';
-import Form from '../Form/Form';
-import Input from '../Input/Input';
+import Form from '../../components/Form/Form';
+import Input from '../../components/Input/Input';
 
-export default class Login extends Component {
-    render() {
+function Login() {
         return (
             <Form title="Рады видеть!" button="Войти" text="Ещё не зарегистрированы?" 
             route="/sign-up" link="Регистрация">
@@ -12,5 +11,6 @@ export default class Login extends Component {
                 <Input name="password" label="Пароль" type="text" value="" isError={false} />
             </Form>
         )
-    }
 }
+
+export default Login

@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Movies.css';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import Preloader from '../../components/Preloader/Preloader';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 
-export default class Movies extends Component {
-  render() {
+function Movies() {
 
     const isLoading = false;
     return (
@@ -16,4 +15,5 @@ export default class Movies extends Component {
       </main>
     )
   }
-}
+
+export default Movies

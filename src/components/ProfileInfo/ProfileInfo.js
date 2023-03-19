@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './ProfileInfo.css';
 
-export default class ProfileInfo extends Component {
-  render() {
+function ProfileInfo({title, info}) {
     return (
       <div className='profile-info'>
-        <span className='profile-info_title'>{this.props.title}</span>
-        <span className='profile-info_data'>{this.props.info}</span>
+        <span className='profile-info__title'>{title}</span>
+        <input className='profile-info__input profile-info__data' value={info} readOnly/>
       </div>
     )
-  }
 }
+
+export default ProfileInfo

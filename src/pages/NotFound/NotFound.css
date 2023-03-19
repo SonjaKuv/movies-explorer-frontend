@@ -1,5 +1,5 @@
 .not-found {
-    padding: 246px 440px 0;
+    padding: 246px 0 60px;
     text-align: center;
     font-weight: 400;
     color: #000000;
@@ -26,4 +26,30 @@
     font-size: 14px;
     line-height: 17px;
     color: #2BE080;
+}
+
+@media screen and (max-width: 768px) {
+    .not-found {
+        padding: 408px 0 222px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .not-found {
+        padding: 329.5px 0 20px;
+    }
+
+    .not-found__title {
+        font-size: 80px;
+        line-height: 97px;
+    }
+
+    .not-found__text,
+    .not-found__back {
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .not-found__text {
+        margin: 10px 0 284px;
+    }
 }

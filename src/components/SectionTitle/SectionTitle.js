@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './SectionTitle.css'
 
-export default class SectionTitle extends Component {
+function SectionTitle({title}) {
 
-    render() {
         return (
     <div className='section-title'>
-        <h3 className='section-title_text'>{this.props.title}</h3>
+        <h3 className='section-title__text'>{title}</h3>
     </div>
     )
-  }
 }
+
+export default SectionTitle

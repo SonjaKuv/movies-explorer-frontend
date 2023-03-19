@@ -1,25 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './NavBar.css';
 
-export class NavBar extends Component {
-    render() {
-        return (
-            <nav className='navbar'>
-                <ul className='navbar_list'>
-                    <li className='navbar_list-item'><a className='navbar_link'>
+function NavBar({ handleScroll }) {
+
+    const handleButtonClick = (target) => {
+        handleScroll(target)
+    };
+    return (
+        <nav className='navbar'>
+            <ul className='navbar__list'>
+                <li className='navbar__list-item'>
+                    <button className='navbar__button button' data='.about' onClick={() => handleButtonClick('.about')}>
                         О проекте
-                    </a>
-                    </li>
-                    <li className='navbar_list-item'><a className='navbar_link'>
+                    </button>
+                </li>
+                <li className='navbar__list-item'>
+                    <button className='navbar__button button' onClick={() => handleButtonClick('.techs')}>
                         Технологии
-                    </a></li>
-                    <li className='navbar_list-item'><a className='navbar_link'>
+                    </button>
+                </li>
+                <li className='navbar__list-item'>
+                    <button className='navbar__button button' onClick={() => handleButtonClick('.about-me')}>
                         Студент
-                    </a></li>
-                </ul>
-            </nav>
-        )
-    }
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    )
 }
 
 export default NavBar
