@@ -20,6 +20,10 @@
     margin: 10px 0 0
 }
 
+.input__field:focus {
+    outline: 1px solid #2BE080;
+}
+
 .input__error {
     margin: 10px 0 0;
     color: #EE3465;
