@@ -7,8 +7,8 @@ function Profile() {
       <main className='main profile'>
         <h1 className='profile__title'>Привет, Виталий!</h1>
         <div className='profile__container'>
-          <ProfileInfo title='Имя' info='Виталий' />
-          <ProfileInfo title='E-mail' info='pochta@yandex.ru' />
+          <ProfileInfo title='Имя' info='Виталий' placeholder="Введите имя"/>
+          <ProfileInfo title='E-mail' info='pochta@yandex.ru' placeholder="Введите e-mail"/>
         </div>
         <div className='profile__container profile__buttons-container'>
           <button className='profile__button button'>Редактировать</button>

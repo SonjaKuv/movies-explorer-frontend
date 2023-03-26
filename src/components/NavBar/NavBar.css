@@ -16,24 +16,28 @@
 }
 
 .navbar__button {
-font-weight: 500;
-font-size: 13px;
-line-height: 16px;
-border: none;
-border-bottom: 1.6px solid #000;
-background: none;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    border: none;
+    border-bottom: 1.6px solid #000;
+    background: none;
 }
 
 @media screen and (max-width: 550px) {
-.navbar {
-    padding: 23.5px 40px 24.5px;
-}
+    .navbar {
+        padding: 23.5px 40px 23.5px;
+    }
 
-.navbar__button {
-    font-size: 11px;
-}
+    .navbar__list {
+        gap: 25px;
+    }
+    
+    .navbar__button {
+        font-size: 11px;
+        line-height: 10px;
+        padding: 0;
+        border-bottom: 0.6px solid #000;
+    }
 
-.navbar_list {
-    gap: 25px;
-}
 }

@@ -7,8 +7,8 @@ function Login() {
         return (
             <Form title="Рады видеть!" button="Войти" text="Ещё не зарегистрированы?" 
             route="/sign-up" link="Регистрация">
-                <Input name="email" label="E-mail" type="email" value="pochta@yandex.ru" isError={false} />
-                <Input name="password" label="Пароль" type="text" value="" isError={false} />
+                <Input name="email" label="E-mail" type="email" value="pochta@yandex.ru" isError={false} placeholder="Введите логин"/>
+                <Input name="password" label="Пароль" type="text" value="" isError={false} placeholder="Введите пароль" />
             </Form>
         )
 }

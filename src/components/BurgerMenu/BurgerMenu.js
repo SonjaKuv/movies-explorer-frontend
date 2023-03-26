@@ -18,6 +18,7 @@ function BurgerMenu({ onClickBurger, isBurgerOpened }) {
             </label>
             <div className={isBurgerOpened ? 'menu__links-container menu__opened' : 'menu__links-container'}>
                 <div className="menu__box">
+                    <nav className='menu__navigation'>
                     <Link to='/'  className={(path.pathname === '/') ? ('menu__link link menu__link_type_current') : ('menu__link link')}>
                         Главная
                     </Link>
@@ -27,6 +28,7 @@ function BurgerMenu({ onClickBurger, isBurgerOpened }) {
                     <Link to='/saved-movies'  className={(path.pathname === '/saved-movies') ? ('menu__link link menu__link_type_current') : ('menu__link link')}>
                         Сохранённые фильмы
                     </Link>
+                    </nav>
                     <Link to='/profile' className='link menu__profile-button'>
                         <button className='header__profile-button'>Аккаунт
                             <img src={user} className='header__profile-icon' alt='Пользователь' />
