@@ -4,14 +4,14 @@ import SearchForm from '../../components/SearchForm/SearchForm';
 import Preloader from '../../components/Preloader/Preloader';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 
-function Movies() {
-
+function Movies({movies}) {
+  console.log(movies)
     const isLoading = false;
     return (
       <main className='main movies'>
         <SearchForm/>
         {isLoading && <Preloader/>}
-        <MoviesCardList/>
+        <MoviesCardList movies={movies}/>
       </main>
     )
   }

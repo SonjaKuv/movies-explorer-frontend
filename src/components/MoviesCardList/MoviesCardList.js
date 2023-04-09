@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import useWindowSize from '../../hooks/useWindowSize';
 import { useLocation } from 'react-router-dom';
 
-function MoviesCardList() {
+function MoviesCardList({movies}) {
   const path = useLocation();
   const windowSize = useWindowSize();
   const [cardsNumber, setCardsNumber] = useState(12);
@@ -24,8 +24,11 @@ function MoviesCardList() {
   return (
     <section className='section movies-list'>
       <div className='movies-list__container'>
-        {[...Array(cardsNumber)].map((x, i) =>
+        {/* {[...Array(cardsNumber)].map((x, i) =>
           <MovieCard key={i} />
+        )} */}
+         {movies.map((movie) =>
+          <MovieCard movie={movie} key={movie.id}  />
         )}
       </div>
       {(path.pathname === '/movies') && (
