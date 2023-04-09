@@ -1,0 +1,39 @@
+.input {
+    display: flex;
+    flex-direction: column;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #A0A0A0;
+    margin: 0 0 -2px;
+}
+
+.input__field {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: #000000;
+    background: #F9F9F9;
+    border-radius: 8px;
+    border: none;
+    padding: 15px;
+    margin: 10px 0 0
+}
+
+.input__field:focus {
+    outline: 1px solid #2BE080;
+}
+
+.input__error {
+    margin: 10px 0 0;
+    color: #EE3465;
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.error {
+    color: #EE3465;
+}
