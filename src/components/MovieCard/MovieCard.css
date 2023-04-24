@@ -5,17 +5,24 @@
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
     max-width: 364px;
     min-width: 200px;
+    width: 100%;
     padding: 0 0 0 1px;
 }
 
 .movie-card__header {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 30px;
     justify-content: space-between;
+    gap: 10px;
     padding: 13.5px;
 }
 
 .movie-card__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 307px;
     font-weight: 500;
+    white-space: nowrap;
     font-size: 15px;
     line-height: 18px;
     color: #000000;
@@ -32,13 +39,25 @@
     color: #A0A0A0;
 }
 
+.movie-card__link {
+    position: relative;
+    padding-top: 50%;
+}
+
 .movie-card__image {
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
     width: 100%;
-    height: auto;
 }
 
 .movie-card__info {
     text-align: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .movie-card__save-button {
