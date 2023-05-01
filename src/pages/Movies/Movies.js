@@ -5,7 +5,7 @@ import Preloader from '../../components/Preloader/Preloader';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import moviesApi from '../../utils/MoviesApi';
 
-function Movies({setIsInfo, setTooltipStatus, setTooltipMessage}) {
+function Movies({setIsInfo, setTooltipStatus, setTooltipMessage, onMovieSave, onMovieDelete}) {
   const [movies, setMovies] = React.useState([]);
   const [searchText, setSearchText] = React.useState('');
   const [isSubmited, setIsSubmited] = React.useState(false);
@@ -20,6 +20,9 @@ function Movies({setIsInfo, setTooltipStatus, setTooltipMessage}) {
       })
       .catch((err) => {
         console.log(err);
+        setTooltipStatus(false);
+        setTooltipMessage('Во время запроса произошла ошибка.' + err.message);
+        setIsInfo(true);
       })
       .finally(() => {
         setIsLoading(false);
@@ -27,13 +30,14 @@ function Movies({setIsInfo, setTooltipStatus, setTooltipMessage}) {
   }, []);
 
   const filterMovies = (text) => {
-    let filteredMovies = movies.filter(movie =>
+    let initialMovies = JSON.parse(localStorage.getItem('initialMovies'))
+    let filteredMovies = initialMovies.filter(movie =>
       ((isShortMovies && movie.duration < 41) || !isShortMovies)
       && movie.nameRU.toLowerCase().includes(text.toLowerCase()));
       if (filteredMovies.length === 0) {
         setIsInfo(true);
         setTooltipStatus(false);
-        setTooltipMessage('Ничего не найдено')
+        setTooltipMessage('Ничего не найдено');
       } else {
         setMovies(filteredMovies);
         localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
@@ -50,9 +54,19 @@ function Movies({setIsInfo, setTooltipStatus, setTooltipMessage}) {
 
   return (
     <main className='main movies'>
-      <SearchForm onSubmit={handleSubmit} isSubmited={isSubmited} searchText={searchText} setSearchText={setSearchText} isShortMovies={isShortMovies} setIsShortMovies={setIsShortMovies} />
+      <SearchForm 
+      onSubmit={handleSubmit} 
+      isSubmited={isSubmited} 
+      searchText={searchText} 
+      setSearchText={setSearchText} 
+      isShortMovies={isShortMovies} 
+      setIsShortMovies={setIsShortMovies} />
       {isLoading && <Preloader />}
-      <MoviesCardList movies={movies} />
+      <MoviesCardList 
+      movies={movies} 
+      onMovieSave={onMovieSave} 
+      onMovieDelete={onMovieDelete}
+      />
     </main>
   )
 }

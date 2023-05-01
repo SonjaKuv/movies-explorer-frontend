@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import useWindowSize from '../../hooks/useWindowSize';
 import { useLocation } from 'react-router-dom';
 
-function MoviesCardList({ movies }) {
+function MoviesCardList({ movies, onMovieSave, onMovieDelete, savedMovies }) {
   const path = useLocation();
   const windowSize = useWindowSize();
   const [cardsNumber, setCardsNumber] = useState(0);
@@ -34,7 +34,13 @@ function MoviesCardList({ movies }) {
 
           <div className='movies-list__container'>
             {movies.map((movie) =>
-              <MovieCard movie={movie} key={movie.id} />
+              <MovieCard 
+              key={movie.id} 
+              movie={movie} 
+              onMovieSave={onMovieSave}
+              onMovieDelete={onMovieDelete}
+              savedMovies={savedMovies}
+              />
             ).slice(0, cardsNumber)}
           </div>
 

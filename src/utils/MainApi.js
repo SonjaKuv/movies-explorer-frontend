@@ -10,10 +10,10 @@ class Api {
     return Promise.reject(`Ошибка ${res.status}`);
   }
 
-  async getUser(jwt) {
+  async getUser() {
     const res = await fetch(`${this._url}/users/me`, {
           headers: {
-              authorization: `Bearer ${jwt}`,
+              authorization: `Bearer ${localStorage.getItem('token')}`,
           },
       });
       return this._checkResponse(res);
@@ -45,7 +45,7 @@ class Api {
     const res = await fetch(`${this._url}/users/me`, {
           method: 'PATCH',
           headers: {
-              authorization: `Bearer ${localStorage.getItem('jwt')}`,
+              authorization: `Bearer ${localStorage.getItem('token')}`,
               'Content-Type': 'application/json',
           },
           body: JSON.stringify({ name, email }),
@@ -56,17 +56,18 @@ class Api {
   async getMovies() {
     const res = await fetch(`${this._url}/movies`, {
           headers: {
-              authorization: `Bearer ${localStorage.getItem('jwt')}`,
+              authorization: `Bearer ${localStorage.getItem('token')}`,
           },
       });
       return this._checkResponse(res);
   }
 
   async createMovie(data) {
+    console.log(data);
     const res = await fetch(`${this._url}/movies`, {
           method: 'POST',
           headers: {
-              authorization: `Bearer ${localStorage.getItem('jwt')}`,
+              authorization: `Bearer ${localStorage.getItem('token')}`,
               'Content-Type': 'application/json',
           },
           body: JSON.stringify({
@@ -81,17 +82,16 @@ class Api {
             nameEN: data.nameEN,
             thumbnail: data.thumbnail,
             movieId: data.movieId,
-            owner: data.owner,
           }),
       });
       return this._checkResponse(res);
   }
 
-  async deleteMovie(data) {
-    const res = await fetch(`${this._url}/movies/${data}`, {
+  async deleteMovie(id) {
+    const res = await fetch(`${this._url}/movies/${id}`, {
           method: 'DELETE',
           headers: {
-              authorization: `Bearer ${localStorage.getItem('jwt')}`,
+              authorization: `Bearer ${localStorage.getItem('token')}`,
           },
       });
       return this._checkResponse(res);

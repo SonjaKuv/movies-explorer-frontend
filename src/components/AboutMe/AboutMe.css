@@ -38,7 +38,8 @@
 
 .about-me__photo {
     width: 270px;
-    height: 327px;
+    height: 360px;
+    border-radius: 10px;
 }
 
 @media screen and (max-width: 768px) {

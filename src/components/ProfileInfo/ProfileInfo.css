@@ -22,8 +22,18 @@
     margin-right: -2px;
 }
 
+.profile-info__input_active {
+    outline: 1px solid #2BE080;
+    border-radius: 10px;
+}
+
 .profile-info__input:focus {
     outline:none;
+}
+
+.profile-info__input_active:focus {
+    outline: 1px solid #2BE080;
+    border-radius: 10px;
 }
 
 @media screen and (max-width: 768px) { 

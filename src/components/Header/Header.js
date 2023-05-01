@@ -7,17 +7,17 @@ import { Link } from 'react-router-dom';
 import useWindowSize from '../../hooks/useWindowSize';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 
-function Header({ onClickBurger, isBurgerOpened, }) {
+function Header({ onClickBurger, isBurgerOpened, loggedIn}) {
     const windowSize = useWindowSize();
     const path = useLocation();
-    const headerClass = (path.pathname !== '/') ? 'header' : 'header header_type_dark'
+    const headerClass = (loggedIn) ? 'header' : 'header header_type_dark'
 
     return (
         <header className={headerClass}>
             <nav className='header__navigation'>
                 <div className='header__link-container header__link-container_type_film'>
                     <Logo />
-                    {(path.pathname !== '/' && windowSize.innerWidth > 768) && (
+                    {(loggedIn && windowSize.innerWidth > 768) && (
                         <div className='header__link-container header__link-container_type_user-links'>
                             <Link to='/movies' className={(path.pathname === '/movies') ? ('header__link header__link_type_films link header__link_type_is-active') : ('header__link header__link_type_films link')}>
                                 Фильмы
@@ -28,7 +28,7 @@ function Header({ onClickBurger, isBurgerOpened, }) {
                         </div>
                     )}
                 </div>
-                {(path.pathname === '/') ? (
+                {(!loggedIn) ? (
                     <div className='header__link-container'>
                         <Link to='/sign-up' className='header__link header__link_type_register link'>
                             Регистрация

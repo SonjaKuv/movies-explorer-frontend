@@ -14,6 +14,8 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import mainApi from '../../utils/MainApi';
+import Preloader from '../Preloader/Preloader';
+import { useLocation } from 'react-router-dom';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -26,28 +28,53 @@ function App() {
   const [isInfo, setIsInfo] = React.useState(false);
   const [tooltipStatus, setTooltipStatus] = React.useState(false);
   const [tooltipMessage, setTooltipMessage] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const history = useNavigate();
+  const path = useLocation();
 
+  // запрос данных данного пользователя
   React.useEffect(() => {
-    const jwt = localStorage.getItem('token');
-    if (jwt) {
-      mainApi.getUser(jwt).then((res) => {
-        console.log(res.data);
-        if (res.data._id) {
-          setCurrentUser(res.data);
-          setEmail(res.data.email);
-          history('/');
-          setLoggedIn(true);
-        }
+    setIsLoading(true);
+    mainApi.getUser().then((res) => {
+      if (res._id) {
+        setCurrentUser(res);
+        setUserName(res.name);
+        setEmail(res.email);
+        history(path.pathname);
+        setLoggedIn(true);
+      }
+    })
+      .catch((err) => {
+        setTooltipStatus(false);
+        setTooltipMessage('Во время запроса произошла ошибка.' + err.message);
+        setIsInfo(true);
+        setLoggedIn(false);
       })
-        .catch((err) => {
-          setTooltipStatus(false);
-          setTooltipMessage('Во время запроса произошла ошибка.' + err.message);
-          setIsInfo(true);
-          setLoggedIn(false);
-        });
-    }
+      .finally(() => {
+        setIsLoading(false);
+      })
   }, []);
+
+  // хандлер для установки новой информации о пользователе
+  const handleNewInfo = () => {
+    setIsLoading(true);
+    mainApi
+      .setNewUserInfo(userName, email)
+      .then((res) => {
+        setCurrentUser(res);
+        setTooltipStatus(true);
+        setTooltipMessage('Ваши данные обновлены!');
+        setIsInfo(true);
+      })
+      .catch((err) => {
+        setTooltipStatus(false);
+        setTooltipMessage('Во время запроса произошла ошибка.' + err);
+        setIsInfo(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
 
   // Регистрация, авторизация и выход
   const handleLogin = (email, password) => {
@@ -57,7 +84,7 @@ function App() {
         setEmail(email);
         setPassword(password);
         localStorage.setItem('token', res.token);
-        history('/');
+        history('/movies');
       })
       .catch((err) => {
         console.log(err);
@@ -75,6 +102,7 @@ function App() {
         history('/sign-in');
       })
       .then((res) => {
+        setUserName('');
         setEmail('');
         setPassword('');
       }).catch((err) => {
@@ -91,20 +119,57 @@ function App() {
     localStorage.removeItem('token');
     setEmail('');
     setPassword('');
+    setUserName('');
     setLoggedIn(false);
     setCurrentUser({});
   };
 
-  const handleMovieSave = (movie) => {
-    const isSaved = false;
-    // movie.likes.some(i => i._id === currentUser._id);
-
-    mainApi.createMovie(movie._id, isSaved)
-      .then((savedMovie) => {
-        setSavedMovies((state) => state.map((c) => c._id === movie._id ? savedMovie : c));
+//  фильмы данного пользователя
+  React.useEffect(() => {
+    setIsLoading(true);
+    // if (loggedIn && currentUser) {
+    mainApi.getMovies()
+      .then((savedMovies) => {
+        setSavedMovies(savedMovies);
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
       })
       .catch((err) => {
         console.log(err);
+        setTooltipStatus(false);
+        setTooltipMessage('Во время запроса произошла ошибка.' + err.message);
+        setIsInfo(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
+  // }
+}, []);
+
+ // хандлеры сохранения и удаления фильмов пользователя
+  const handleMovieSave = (movie) => {
+    mainApi.createMovie(movie._id)
+      .then((movie) => {
+        setSavedMovies([movie, ...savedMovies]);
+      })
+      .catch((err) => {
+        console.log(err);
+        setTooltipStatus(false);
+        setTooltipMessage('Во время запроса произошла ошибка.' + err.message);
+        setIsInfo(true);
+      });
+  }
+
+  const handleMovieUnsave = (movie) => {
+    mainApi.deleteMovie(movie._id)
+      .then((deletedMovie) => {
+        let changedMoviesList = savedMovies.filter((savedMovie) => savedMovie._id !== deletedMovie._id);
+        setSavedMovies(changedMoviesList);
+      })
+      .catch((err) => {
+        console.log(err);
+        setTooltipStatus(false);
+        setTooltipMessage('Во время запроса произошла ошибка.' + err.message);
+        setIsInfo(true);
       });
   }
 
@@ -119,66 +184,81 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
-        <Routes>
-          <Route path="/" element={
-            <Layout
-              onClickBurger={onClickBurger}
-              isBurgerOpened={isBurgerOpened}>
-              <Main />
-            </Layout>
-          }></Route>
-          <Route path="/movies" element={
-            <ProtectedRoute loggedIn={loggedIn}>
-              <Layout
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          <Routes>
+            <Route path="/" element={
+              <Layout loggedIn={loggedIn}
                 onClickBurger={onClickBurger}
                 isBurgerOpened={isBurgerOpened}>
-                <Movies
-                  setIsInfo={setIsInfo}
-                  onMovieSave={handleMovieSave}
-                  setTooltipStatus={setTooltipStatus}
-                  setTooltipMessage={setTooltipMessage}
-                />
+                <Main />
               </Layout>
-            </ProtectedRoute>
-          }></Route>
-          <Route path="/saved-movies" element={
-            <ProtectedRoute loggedIn={loggedIn}>
-              <Layout
-                onClickBurger={onClickBurger}
-                isBurgerOpened={isBurgerOpened}>
-                <SavedMovies
-                  savedMovies={savedMovies} />
-              </Layout>
-            </ProtectedRoute>
-          }></Route>
-          <Route path="/profile" element={
-            <ProtectedRoute loggedIn={loggedIn}>
-              <Layout
-                onClickBurger={onClickBurger}
-                isBurgerOpened={isBurgerOpened}>
-                <Profile />
-              </Layout>
-            </ProtectedRoute>
-          }></Route>
-          <Route path="/sign-up" element={
-            <Register
-              onRegister={handleRegister}
-              email={email}
-              password={password}
-              userName={userName}
-              setEmail={setEmail}
-              setPassword={setPassword}
-              setUserName={setUserName} />} />
-          <Route path="/sign-in" element={
-            <Login
-              onLogin={handleLogin}
-              email={email}
-              password={password}
-              setEmail={setEmail}
-              setPassword={setPassword} />}
-          />
-          <Route path="/404" element={<NotFound />} />
-        </Routes>
+            }></Route>
+            <Route path="/movies" element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Layout loggedIn={loggedIn}
+                  onClickBurger={onClickBurger}
+                  isBurgerOpened={isBurgerOpened}>
+                  <Movies
+                    setIsInfo={setIsInfo}
+                    onMovieSave={handleMovieSave}
+                    onMovieDelete={handleMovieUnsave}
+                    setTooltipStatus={setTooltipStatus}
+                    setTooltipMessage={setTooltipMessage}
+                  />
+                </Layout>
+              </ProtectedRoute>
+            }></Route>
+            <Route path="/saved-movies" element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Layout loggedIn={loggedIn}
+                  onClickBurger={onClickBurger}
+                  isBurgerOpened={isBurgerOpened}>
+                  <SavedMovies
+                    setIsInfo={setIsInfo}
+                    onMovieDelete={handleMovieUnsave}
+                    setTooltipStatus={setTooltipStatus}
+                    setTooltipMessage={setTooltipMessage}
+                    />
+                </Layout>
+              </ProtectedRoute>
+            }></Route>
+            <Route path="/profile" element={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Layout loggedIn={loggedIn}
+                  onClickBurger={onClickBurger}
+                  isBurgerOpened={isBurgerOpened}>
+                  <Profile
+                    handleSignout={handleSignout}
+                    userName={userName}
+                    email={email}
+                    setUserName={setUserName}
+                    setEmail={setEmail}
+                    handleNewInfo={handleNewInfo} />
+                </Layout>
+              </ProtectedRoute>
+            }></Route>
+            <Route path="/sign-up" element={
+              <Register
+                onRegister={handleRegister}
+                email={email}
+                password={password}
+                userName={userName}
+                setEmail={setEmail}
+                setPassword={setPassword}
+                setUserName={setUserName} />} />
+            <Route path="/sign-in" element={
+              <Login
+                onLogin={handleLogin}
+                email={email}
+                password={password}
+                setEmail={setEmail}
+                setPassword={setPassword} />}
+            />
+            <Route path="/404" element={<NotFound />} />
+          </Routes>
+        )}
         <InfoTooltip
           isOpen={isInfo}
           status={tooltipStatus}
