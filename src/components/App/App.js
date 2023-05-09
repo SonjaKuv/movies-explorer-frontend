@@ -35,7 +35,9 @@ function App() {
   // запрос данных данного пользователя
   React.useEffect(() => {
     setIsLoading(true);
-    mainApi.getUser().then((res) => {
+    mainApi
+    .getUser()
+    .then((res) => {
       if (res._id) {
         setCurrentUser(res);
         setUserName(res.name);
@@ -46,7 +48,7 @@ function App() {
     })
       .catch((err) => {
         setTooltipStatus(false);
-        setTooltipMessage('Во время запроса произошла ошибка.' + err.message);
+        setTooltipMessage('Произошла ошибка. ' + err.message);
         setIsInfo(true);
         setLoggedIn(false);
       })
@@ -68,7 +70,7 @@ function App() {
       })
       .catch((err) => {
         setTooltipStatus(false);
-        setTooltipMessage('Во время запроса произошла ошибка.' + err);
+        setTooltipMessage('Произошла ошибка. ' + err.message);
         setIsInfo(true);
       })
       .finally(() => {
@@ -87,9 +89,8 @@ function App() {
         history('/movies');
       })
       .catch((err) => {
-        console.log(err);
         setTooltipStatus(false);
-        setTooltipMessage('Во время запроса произошла ошибка.' + err.message);
+        setTooltipMessage('Произошла ошибка. ' + err.message);
         setIsInfo(true);
       });
   };
@@ -106,9 +107,8 @@ function App() {
         setEmail('');
         setPassword('');
       }).catch((err) => {
-        console.log(err);
         setTooltipStatus(false);
-        setTooltipMessage('Во время запроса произошла ошибка.' + err);
+        setTooltipMessage('Произошла ошибка. ' + err.message);
       })
       .finally(() => {
         setIsInfo(true);
@@ -133,9 +133,8 @@ function App() {
         localStorage.setItem('savedMovies', JSON.stringify(savedMovies.data));
       })
       .catch((err) => {
-        console.log(err);
         setTooltipStatus(false);
-        setTooltipMessage('Во время запроса произошла ошибка.' + err.message);
+        setTooltipMessage('Произошла ошибка. ' + err.message);
         setIsInfo(true);
       })
       .finally(() => {
@@ -151,9 +150,8 @@ function App() {
         localStorage.savedMovies = JSON.stringify([movie.data, ...savedMovies]);
       })
       .catch((err) => {
-        console.log(err);
         setTooltipStatus(false);
-        setTooltipMessage('Во время запроса произошла ошибка.' + err.message);
+        setTooltipMessage('Произошла ошибка. ' + err.message);
         setIsInfo(true);
       });
   }
@@ -166,9 +164,8 @@ function App() {
         localStorage.savedMovies = JSON.stringify(changedMoviesList);
       })
       .catch((err) => {
-        console.log(err);
         setTooltipStatus(false);
-        setTooltipMessage('Во время запроса произошла ошибка.' + err.message);
+        setTooltipMessage('Произошла ошибка. ' + err.message);
         setIsInfo(true);
       });
   }

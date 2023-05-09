@@ -19,9 +19,8 @@ function Movies({setIsInfo, setTooltipStatus, setTooltipMessage, onMovieSave, on
         localStorage.setItem('initialMovies', JSON.stringify(movies));
       })
       .catch((err) => {
-        console.log(err);
         setTooltipStatus(false);
-        setTooltipMessage('Во время запроса произошла ошибка.' + err.message);
+        setTooltipMessage('Произошла ошибка. ' + err.message);
         setIsInfo(true);
       })
       .finally(() => {

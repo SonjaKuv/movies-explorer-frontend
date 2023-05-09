@@ -6,8 +6,11 @@ class Api {
   _checkResponse(res) {
     if (res.ok) {
       return res.json();
+    } else {
+      return res.json().then((data) => {
+        throw new Error(data.message);
+      });
     }
-    return Promise.reject(`Ошибка ${res.status}`);
   }
 
   async getUser() {
