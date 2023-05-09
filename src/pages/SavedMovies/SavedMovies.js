@@ -47,7 +47,6 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
         <MoviesCardList 
         movies={savedMovies}
         onMovieDelete={onMovieDelete}
-        savedMovies={savedMovies}
         />
       </main>
     )

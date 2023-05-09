@@ -127,11 +127,10 @@ function App() {
 //  фильмы данного пользователя
   React.useEffect(() => {
     setIsLoading(true);
-    // if (loggedIn && currentUser) {
     mainApi.getMovies()
       .then((savedMovies) => {
-        setSavedMovies(savedMovies);
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+        setSavedMovies(savedMovies.data);
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies.data));
       })
       .catch((err) => {
         console.log(err);
@@ -142,14 +141,14 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       })
-  // }
 }, []);
 
  // хандлеры сохранения и удаления фильмов пользователя
   const handleMovieSave = (movie) => {
-    mainApi.createMovie(movie._id)
+    mainApi.createMovie(movie)
       .then((movie) => {
-        setSavedMovies([movie, ...savedMovies]);
+        setSavedMovies([movie.data, ...savedMovies]);
+        localStorage.savedMovies = JSON.stringify([movie.data, ...savedMovies]);
       })
       .catch((err) => {
         console.log(err);
@@ -159,11 +158,12 @@ function App() {
       });
   }
 
-  const handleMovieUnsave = (movie) => {
-    mainApi.deleteMovie(movie._id)
+  const handleMovieUnsave = (id) => {
+    mainApi.deleteMovie(id)
       .then((deletedMovie) => {
         let changedMoviesList = savedMovies.filter((savedMovie) => savedMovie._id !== deletedMovie._id);
         setSavedMovies(changedMoviesList);
+        localStorage.savedMovies = JSON.stringify(changedMoviesList);
       })
       .catch((err) => {
         console.log(err);
@@ -216,6 +216,8 @@ function App() {
                   onClickBurger={onClickBurger}
                   isBurgerOpened={isBurgerOpened}>
                   <SavedMovies
+                  savedMovies={savedMovies}
+                  setSavedMovies={setSavedMovies}
                     setIsInfo={setIsInfo}
                     onMovieDelete={handleMovieUnsave}
                     setTooltipStatus={setTooltipStatus}

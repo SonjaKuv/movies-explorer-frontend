@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import useWindowSize from '../../hooks/useWindowSize';
 import { useLocation } from 'react-router-dom';
 
-function MoviesCardList({ movies, onMovieSave, onMovieDelete, savedMovies }) {
+function MoviesCardList({ movies, onMovieSave, onMovieDelete }) {
   const path = useLocation();
   const windowSize = useWindowSize();
   const [cardsNumber, setCardsNumber] = useState(0);
@@ -32,19 +32,18 @@ function MoviesCardList({ movies, onMovieSave, onMovieDelete, savedMovies }) {
   return (
     <section className='section movies-list'>
 
-          <div className='movies-list__container'>
-            {movies.map((movie) =>
-              <MovieCard 
-              key={movie.id} 
-              movie={movie} 
-              onMovieSave={onMovieSave}
-              onMovieDelete={onMovieDelete}
-              savedMovies={savedMovies}
-              />
-            ).slice(0, cardsNumber)}
-          </div>
+      <div className='movies-list__container'>
+        {movies.map((movie, i) =>
+          <MovieCard
+            key={i}
+            movie={movie}
+            onMovieSave={onMovieSave}
+            onMovieDelete={onMovieDelete}
+          />
+        ).slice(0, cardsNumber)}
+      </div>
 
-          {(path.pathname === '/movies' && movies.length > addNumber && cardsNumber !== movies.length) && (<button className='movies-list__button button' onClick={handleMoreClick}>Ещё</button>)}
+      {(path.pathname === '/movies' && movies.length > addNumber && cardsNumber !== movies.length) && (<button className='movies-list__button button' onClick={handleMoreClick}>Ещё</button>)}
 
     </section>
   )

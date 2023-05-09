@@ -62,8 +62,8 @@ class Api {
       return this._checkResponse(res);
   }
 
-  async createMovie(data) {
-    console.log(data);
+  async createMovie(movie) {
+    console.log(movie);
     const res = await fetch(`${this._url}/movies`, {
           method: 'POST',
           headers: {
@@ -71,18 +71,20 @@ class Api {
               'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            country: data.country,
-            director: data.director,
-            duration: data.duration,
-            year: data.year,
-            description: data.description,
-            image: data.image,
-            trailerLink: data.trailerLink,
-            nameRU: data.nameRU,
-            nameEN: data.nameEN,
-            thumbnail: data.thumbnail,
-            movieId: data.movieId,
-          }),
+            country: movie.country ?? '1',
+            description: movie.description,
+            director: movie.director,
+            duration: movie.duration,
+            image: `https://api.nomoreparties.co${movie.image.url}`,
+            nameEN: movie.nameEN ?? movie.nameRU,
+            nameRU: movie.nameRU,
+            trailerLink: movie.trailerLink
+              ? movie.trailerLink
+              : `https://www.youtube.com/results?search_query=трейлер+${movie.nameRU}`,
+            year: movie.year,
+            thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+            movieId: movie.id,
+          })
       });
       return this._checkResponse(res);
   }
