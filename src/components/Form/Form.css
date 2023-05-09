@@ -38,6 +38,11 @@
     margin: 71px 0 16.5px 0;
 }
 
+.form__button:disabled {
+    background: rgba(19, 1, 1, 0.3);
+    cursor: default;
+}
+
 .form__text {
     font-weight: 400;
     font-size: 14px;

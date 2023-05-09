@@ -3,7 +3,7 @@ import './Form.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 
-function Form({title, children, button, text, route, link, onSubmit}) {
+function Form({title, children, button, text, route, link, onSubmit, isValidForm}) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onSubmit();
@@ -17,7 +17,7 @@ function Form({title, children, button, text, route, link, onSubmit}) {
           <fieldset className='form__fieldset'>
             {children}
           </fieldset>
-          <button type="submit" className='button form__button'>{button}</button>
+          <button type="submit" className='button form__button' disabled={!isValidForm}>{button}</button>
           <p className='form__text'>{text}
             <Link to={route} className='form__link link'>{link}</Link>
           </p>

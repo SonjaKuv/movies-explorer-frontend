@@ -36,6 +36,11 @@ margin: 0 2px 0 0;
     margin-bottom: 14px;
 }
 
+.profile__button:disabled {
+    cursor: default;
+    color: rgba(19, 1, 1, 0.3);
+}
+
 .profile__button_type_sign-out {
     font-weight: 500;
     color: #EE3465;
