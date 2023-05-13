@@ -54,7 +54,7 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       })
-  }, []);
+  }, [loggedIn]);
 
   // хандлер для установки новой информации о пользователе
   const handleNewInfo = () => {
@@ -93,7 +93,7 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       })
-  }, []);
+  }, [loggedIn]);
 
   // сохраненные фильмы пользователя
   React.useEffect(() => {
@@ -113,7 +113,7 @@ function App() {
           setIsLoading(false);
         })
     }
-  }, []);
+  }, [loggedIn]);
 
   // сохранение фильма
   const handleMovieSave = (movie) => {
