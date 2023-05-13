@@ -3,33 +3,18 @@ import './Movies.css';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import Preloader from '../../components/Preloader/Preloader';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
-import moviesApi from '../../utils/MoviesApi';
+import { useLocation } from 'react-router-dom';
 
-function Movies({setIsInfo, setTooltipStatus, setTooltipMessage, onMovieSave, onMovieDelete}) {
-  const [movies, setMovies] = React.useState([]);
-  const [searchText, setSearchText] = React.useState('');
+function Movies({setMovies, setIsInfo, setTooltipStatus, setTooltipMessage, isLoading, onMovieSave, onMovieDelete}) {
+  const path = useLocation();
+
+  const [searchText, setSearchText] = React.useState(localStorage.searchText);
   const [isSubmited, setIsSubmited] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [isShortMovies, setIsShortMovies] = React.useState(false);
-  React.useEffect(() => {
-    setIsLoading(true);
-    moviesApi.getMovies()
-      .then((movies) => {
-        setMovies(movies);
-        localStorage.setItem('initialMovies', JSON.stringify(movies));
-      })
-      .catch((err) => {
-        setTooltipStatus(false);
-        setTooltipMessage('Произошла ошибка. ' + err.message);
-        setIsInfo(true);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      })
-  }, []);
+  const [isShortMovies, setIsShortMovies] = React.useState(JSON.parse(localStorage.shortMoviesState));
+
 
   const filterMovies = (text) => {
-    let initialMovies = JSON.parse(localStorage.getItem('initialMovies'))
+    let initialMovies = JSON.parse(localStorage.getItem('initialMovies'));
     let filteredMovies = initialMovies.filter(movie =>
       ((isShortMovies && movie.duration < 41) || !isShortMovies)
       && movie.nameRU.toLowerCase().includes(text.toLowerCase()));
@@ -39,15 +24,19 @@ function Movies({setIsInfo, setTooltipStatus, setTooltipMessage, onMovieSave, on
         setTooltipMessage('Ничего не найдено');
       } else {
         setMovies(filteredMovies);
-        localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+        localStorage.filteredMovies = JSON.stringify(filteredMovies);
     }
   }
 
-  const handleSubmit = (evt) => {
+ 
+ const handleSubmit = (evt) => {
     evt.preventDefault();
     setIsSubmited(true);
-    localStorage.setItem('searchText', searchText);
-    localStorage.setItem('shortMoviesState', isShortMovies);
+    if (path.pathname === '/movies') {
+    localStorage.searchText = searchText;
+    localStorage.shortMoviesState = JSON.stringify(isShortMovies);
+    }
+
     filterMovies(searchText);
   }
 
@@ -62,7 +51,7 @@ function Movies({setIsInfo, setTooltipStatus, setTooltipMessage, onMovieSave, on
       setIsShortMovies={setIsShortMovies} />
       {isLoading && <Preloader />}
       <MoviesCardList 
-      movies={movies} 
+      movies={JSON.parse(localStorage.filteredMovies)} 
       onMovieSave={onMovieSave} 
       onMovieDelete={onMovieDelete}
       />

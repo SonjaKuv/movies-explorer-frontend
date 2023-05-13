@@ -3,25 +3,25 @@ import './Profile.css';
 import ProfileInfo from '../../components/ProfileInfo/ProfileInfo';
 import { useState } from 'react';
 
-function Profile({ handleSignout, userName, email, setUserName, setEmail, handleNewInfo }) {
+function Profile({currentUser, handleSignout, userName, email, setUserName, setEmail, handleNewInfo }) {
   const [readOnly, setReadOnly] = useState(true);
   const [isValidForm, setIsValidForm] = useState(false);
   const [userNameValid, setUserNameValid] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
 
   React.useEffect(() => {
-    if (emailValid && userNameValid) {
+    if (emailValid && userNameValid && (currentUser.name !== userName || currentUser.email !== email)) {
         setIsValidForm(true);
     } else {
         setIsValidForm(false);
     }
-}, [emailValid, userNameValid])
+}, [emailValid, userNameValid, userName, email]);
 
   const handleChange = () => {
     setReadOnly(false);
   };
 
-  const handleSave = (evt, userName, email) => {
+  const handleSave = (evt) => {
     evt.preventDefault();
     setReadOnly(true);
     handleNewInfo();

@@ -7,11 +7,14 @@ function MovieCard({ movie, onMovieSave, onMovieDelete }) {
   let savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
   const path = useLocation();
 
-  const [isSaved, setIsSaved] = useState(savedMovies.some((m) => (path.pathname === "/movies") ? (m.movieId === movie.id) : (m.movieId === movie.movieId)));
-
+  const [isSaved, setIsSaved] = useState(false);
   const hours = Math.floor(movie.duration / 60);
   const mins = Math.floor(movie.duration - hours * 60);
   const movieSaveButtonClassName = `movie-card__save-button button ${isSaved && 'movie-card__save-button_active'}`;
+
+  React.useEffect(() => {
+    setIsSaved(savedMovies.some((m) => (path.pathname === "/movies") ? (m.movieId === movie.id) : (m.movieId === movie.movieId)));
+}, [movie]);
 
   const handleClick = (movie) => {
     if (!isSaved) {

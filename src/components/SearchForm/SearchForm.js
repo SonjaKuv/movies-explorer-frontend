@@ -4,6 +4,7 @@ import search from '../../images/search.svg';
 import find from '../../images/find.svg';
 
 function SearchForm({ onSubmit, isSubmited, searchText, setSearchText, isShortMovies, setIsShortMovies }) {
+    let searchErrorClass = `search__error ${(isSubmited && searchText === '') && 'visible'}`;
 
     const handleChange = (evt) => {
         setSearchText(evt.target.value);
@@ -11,9 +12,7 @@ function SearchForm({ onSubmit, isSubmited, searchText, setSearchText, isShortMo
 
     const handleCheckboxChange = (evt) => {
         setIsShortMovies(evt.target.checked)
-
     }
-    let searchErrorClass = `search__error ${(isSubmited && searchText === '') && 'visible'}`;
 
     return (
         <section className='section search'>

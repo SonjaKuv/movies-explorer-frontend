@@ -7,7 +7,8 @@ class Api {
     if (res.ok) {
       return res.json();
     } else {
-      return res.json().then((data) => {
+      return res.json()
+      .then((data) => {
         throw new Error(data.message);
       });
     }
@@ -66,7 +67,6 @@ class Api {
   }
 
   async createMovie(movie) {
-    console.log(movie);
     const res = await fetch(`${this._url}/movies`, {
           method: 'POST',
           headers: {
@@ -92,8 +92,8 @@ class Api {
       return this._checkResponse(res);
   }
 
-  async deleteMovie(id) {
-    const res = await fetch(`${this._url}/movies/${id}`, {
+  async deleteMovie(movieId) {
+    const res = await fetch(`${this._url}/movies/${movieId}`, {
           method: 'DELETE',
           headers: {
               authorization: `Bearer ${localStorage.getItem('token')}`,

@@ -23,11 +23,13 @@ function MoviesCardList({ movies, onMovieSave, onMovieDelete }) {
       setCardsNumber(5);
       setAddNumber(2);
     }
-  }, [windowSize.innerWidth]);
+  }, [windowSize.innerWidth, movies]);
 
   const handleMoreClick = () => {
     setCardsNumber(cardsNumber + addNumber);
   };
+
+  console.log(cardsNumber, movies.length);
 
   return (
     <section className='section movies-list'>
@@ -43,7 +45,7 @@ function MoviesCardList({ movies, onMovieSave, onMovieDelete }) {
         ).slice(0, cardsNumber)}
       </div>
 
-      {(path.pathname === '/movies' && movies.length > addNumber && cardsNumber !== movies.length) && (<button className='movies-list__button button' onClick={handleMoreClick}>Ещё</button>)}
+      {(path.pathname === '/movies' && movies.length > addNumber && cardsNumber < movies.length) && (<button className='movies-list__button button' onClick={handleMoreClick}>Ещё</button>)}
 
     </section>
   )

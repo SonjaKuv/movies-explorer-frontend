@@ -40,7 +40,11 @@ function ProfileInfo({title, name, info, placeholder, setValue, readOnly, setVal
 }, [info]);
   
   const handleChange = (evt) => {
-    setValue(evt.target.value);
+    if (evt.target.value !== info) {
+      setValue(evt.target.value);
+    } else {
+      setValid(false);
+    }
   }
 
     return (
