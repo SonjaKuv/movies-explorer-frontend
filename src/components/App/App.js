@@ -49,12 +49,12 @@ function App() {
         }
       })
       .catch((err) => {
-       console.log(err.message);
+        console.log(err.message);
       })
       .finally(() => {
         setIsLoading(false);
       })
-    }, []);
+  }, []);
 
   // хандлер для установки новой информации о пользователе
   const handleNewInfo = () => {
@@ -77,7 +77,7 @@ function App() {
       });
   }
 
-  // запрос, сохранение и удаление фильмов
+  // запрос всех фильмов
   React.useEffect(() => {
     setIsLoading(true);
     moviesApi.getMovies()
@@ -95,25 +95,27 @@ function App() {
       })
   }, []);
 
-
+  // сохраненные фильмы пользователя
   React.useEffect(() => {
     setIsLoading(true);
     if (localStorage.token) {
-    mainApi.getMovies()
-      .then((savedMovies) => {
-        setSavedMovies(savedMovies.data);
-        localStorage.savedMovies = JSON.stringify(savedMovies.data);
-      })
-      .catch((err) => {
-        setTooltipStatus(false);
-        setTooltipMessage('Произошла ошибка. ' + err.message);
-        setIsInfo(true);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      })
-  }}, []);
+      mainApi.getMovies()
+        .then((savedMovies) => {
+          setSavedMovies(savedMovies.data);
+          localStorage.savedMovies = JSON.stringify(savedMovies.data);
+        })
+        .catch((err) => {
+          setTooltipStatus(false);
+          setTooltipMessage('Произошла ошибка. ' + err.message);
+          setIsInfo(true);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        })
+    }
+  }, []);
 
+  // сохранение фильма
   const handleMovieSave = (movie) => {
     mainApi.createMovie(movie)
       .then((movie) => {
@@ -127,6 +129,7 @@ function App() {
       });
   }
 
+  // удаление фильма из сохраненных
   const handleMovieUnsave = (id) => {
     mainApi.deleteMovie(id)
       .then((deletedMovie) => {
@@ -141,7 +144,7 @@ function App() {
       });
   }
 
-  // Регистрация, авторизация и выход
+  // Авторизация
   const handleLogin = (email, password) => {
     setIsLoading(true);
     mainApi.login(email, password)
@@ -167,6 +170,7 @@ function App() {
       });
   };
 
+  // Регистрация
   const handleRegister = (userName, email, password) => {
     setIsLoading(true);
     mainApi.createUser(userName, email, password)
@@ -189,6 +193,7 @@ function App() {
       })
   };
 
+  // Выход
   const handleSignout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('initialMovies');

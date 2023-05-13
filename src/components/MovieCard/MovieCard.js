@@ -14,7 +14,7 @@ function MovieCard({ movie, onMovieSave, onMovieDelete }) {
 
   React.useEffect(() => {
     setIsSaved(savedMovies.some((m) => (path.pathname === "/movies") ? (m.movieId === movie.id) : (m.movieId === movie.movieId)));
-}, [movie]);
+  }, [movie]);
 
   const handleClick = (movie) => {
     if (!isSaved) {
@@ -22,9 +22,9 @@ function MovieCard({ movie, onMovieSave, onMovieDelete }) {
       onMovieSave(movie);
     } else {
       if (path.pathname === "/movies") {
-       let movieFromSaveArray = savedMovies.find((m) => m.movieId === movie.id)
+        let movieFromSaveArray = savedMovies.find((m) => m.movieId === movie.id)
         onMovieDelete(movieFromSaveArray._id);
-      } else { 
+      } else {
         onMovieDelete(movie._id);
       };
       setIsSaved(false);

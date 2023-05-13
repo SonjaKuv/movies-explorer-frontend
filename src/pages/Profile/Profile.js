@@ -3,7 +3,7 @@ import './Profile.css';
 import ProfileInfo from '../../components/ProfileInfo/ProfileInfo';
 import { useState } from 'react';
 
-function Profile({currentUser, handleSignout, userName, email, setUserName, setEmail, handleNewInfo }) {
+function Profile({ currentUser, handleSignout, userName, email, setUserName, setEmail, handleNewInfo }) {
   const [readOnly, setReadOnly] = useState(true);
   const [isValidForm, setIsValidForm] = useState(false);
   const [userNameValid, setUserNameValid] = useState(false);
@@ -11,11 +11,11 @@ function Profile({currentUser, handleSignout, userName, email, setUserName, setE
 
   React.useEffect(() => {
     if (emailValid && userNameValid && (currentUser.name !== userName || currentUser.email !== email)) {
-        setIsValidForm(true);
+      setIsValidForm(true);
     } else {
-        setIsValidForm(false);
+      setIsValidForm(false);
     }
-}, [emailValid, userNameValid, userName, email]);
+  }, [emailValid, userNameValid, userName, email]);
 
   const handleChange = () => {
     setReadOnly(false);
@@ -30,8 +30,8 @@ function Profile({currentUser, handleSignout, userName, email, setUserName, setE
     <main className='main profile'>
       <h1 className='profile__title'>Привет, {userName}</h1>
       <div className='profile__container'>
-        <ProfileInfo title='Имя' name='user_name' info={userName} placeholder="Введите имя" setValue={setUserName} readOnly={readOnly} setValid={setUserNameValid}/>
-        <ProfileInfo title='E-mail' name='email' info={email} placeholder="Введите e-mail" setValue={setEmail} readOnly={readOnly} setValid={setEmailValid}/>
+        <ProfileInfo title='Имя' name='user_name' info={userName} placeholder="Введите имя" setValue={setUserName} readOnly={readOnly} setValid={setUserNameValid} />
+        <ProfileInfo title='E-mail' name='email' info={email} placeholder="Введите e-mail" setValue={setEmail} readOnly={readOnly} setValid={setEmailValid} />
       </div>
       <div className='profile__container profile__buttons-container'>
         {(readOnly) ? (

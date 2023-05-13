@@ -5,7 +5,7 @@ import Preloader from '../../components/Preloader/Preloader';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import { useLocation } from 'react-router-dom';
 
-function Movies({setMovies, setIsInfo, setTooltipStatus, setTooltipMessage, isLoading, onMovieSave, onMovieDelete}) {
+function Movies({ setMovies, setIsInfo, setTooltipStatus, setTooltipMessage, isLoading, onMovieSave, onMovieDelete }) {
   const path = useLocation();
 
   const [searchText, setSearchText] = React.useState(localStorage.searchText);
@@ -18,23 +18,23 @@ function Movies({setMovies, setIsInfo, setTooltipStatus, setTooltipMessage, isLo
     let filteredMovies = initialMovies.filter(movie =>
       ((isShortMovies && movie.duration < 41) || !isShortMovies)
       && movie.nameRU.toLowerCase().includes(text.toLowerCase()));
-      if (filteredMovies.length === 0) {
-        setIsInfo(true);
-        setTooltipStatus(false);
-        setTooltipMessage('Ничего не найдено');
-      } else {
-        setMovies(filteredMovies);
-        localStorage.filteredMovies = JSON.stringify(filteredMovies);
+    if (filteredMovies.length === 0) {
+      setIsInfo(true);
+      setTooltipStatus(false);
+      setTooltipMessage('Ничего не найдено');
+    } else {
+      setMovies(filteredMovies);
+      localStorage.filteredMovies = JSON.stringify(filteredMovies);
     }
   }
 
- 
- const handleSubmit = (evt) => {
+
+  const handleSubmit = (evt) => {
     evt.preventDefault();
     setIsSubmited(true);
     if (path.pathname === '/movies') {
-    localStorage.searchText = searchText;
-    localStorage.shortMoviesState = JSON.stringify(isShortMovies);
+      localStorage.searchText = searchText;
+      localStorage.shortMoviesState = JSON.stringify(isShortMovies);
     }
 
     filterMovies(searchText);
@@ -42,18 +42,18 @@ function Movies({setMovies, setIsInfo, setTooltipStatus, setTooltipMessage, isLo
 
   return (
     <main className='main movies'>
-      <SearchForm 
-      onSubmit={handleSubmit} 
-      isSubmited={isSubmited} 
-      searchText={searchText} 
-      setSearchText={setSearchText} 
-      isShortMovies={isShortMovies} 
-      setIsShortMovies={setIsShortMovies} />
+      <SearchForm
+        onSubmit={handleSubmit}
+        isSubmited={isSubmited}
+        searchText={searchText}
+        setSearchText={setSearchText}
+        isShortMovies={isShortMovies}
+        setIsShortMovies={setIsShortMovies} />
       {isLoading && <Preloader />}
-      <MoviesCardList 
-      movies={JSON.parse(localStorage.filteredMovies)} 
-      onMovieSave={onMovieSave} 
-      onMovieDelete={onMovieDelete}
+      <MoviesCardList
+        movies={JSON.parse(localStorage.filteredMovies)}
+        onMovieSave={onMovieSave}
+        onMovieDelete={onMovieDelete}
       />
     </main>
   )

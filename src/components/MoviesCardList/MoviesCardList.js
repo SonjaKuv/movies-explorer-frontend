@@ -29,8 +29,6 @@ function MoviesCardList({ movies, onMovieSave, onMovieDelete }) {
     setCardsNumber(cardsNumber + addNumber);
   };
 
-  console.log(cardsNumber, movies.length);
-
   return (
     <section className='section movies-list'>
 
