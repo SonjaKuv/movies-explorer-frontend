@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 function MovieCard({ movie, onMovieSave, onMovieDelete }) {
-  let savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+  let savedMovies = JSON.parse(localStorage.savedMovies);
   const path = useLocation();
 
   const [isSaved, setIsSaved] = useState(false);

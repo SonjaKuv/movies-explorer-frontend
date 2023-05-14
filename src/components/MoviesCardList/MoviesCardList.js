@@ -33,7 +33,7 @@ function MoviesCardList({ movies, onMovieSave, onMovieDelete }) {
     <section className='section movies-list'>
 
       <div className='movies-list__container'>
-        {movies.map((movie, i) =>
+        { (movies) && movies.map((movie, i) =>
           <MovieCard
             key={i}
             movie={movie}

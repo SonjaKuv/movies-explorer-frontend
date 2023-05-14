@@ -14,7 +14,6 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import mainApi from '../../utils/MainApi';
-import moviesApi from '../../utils/MoviesApi';
 import Preloader from '../Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
 
@@ -75,25 +74,7 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       });
-  }
-
-  // запрос всех фильмов
-  React.useEffect(() => {
-    setIsLoading(true);
-    moviesApi.getMovies()
-      .then((movies) => {
-        setMovies(movies);
-        localStorage.initialMovies = JSON.stringify(movies);
-      })
-      .catch((err) => {
-        setTooltipStatus(false);
-        setTooltipMessage('Произошла ошибка. ' + err.message);
-        setIsInfo(true);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      })
-  }, [loggedIn]);
+  };
 
   // сохраненные фильмы пользователя
   React.useEffect(() => {
@@ -127,7 +108,7 @@ function App() {
         setTooltipMessage('Произошла ошибка. ' + err.message);
         setIsInfo(true);
       });
-  }
+  };
 
   // удаление фильма из сохраненных
   const handleMovieUnsave = (id) => {
@@ -142,7 +123,7 @@ function App() {
         setTooltipMessage('Произошла ошибка. ' + err.message);
         setIsInfo(true);
       });
-  }
+  };
 
   // Авторизация
   const handleLogin = (email, password) => {
@@ -155,8 +136,8 @@ function App() {
         localStorage.setItem('token', res.token);
         localStorage.setItem('searchText', '');
         localStorage.setItem('shortMoviesState', false);
-        localStorage.setItem('initialMovies', JSON.stringify(movies));
-        localStorage.setItem('filteredMovies', JSON.stringify(movies));
+        localStorage.setItem('initialMovies', []);
+        localStorage.setItem('filteredMovies', []);
         localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
         history('/movies');
       })
@@ -209,14 +190,13 @@ function App() {
     history('/');
   };
 
-
   const onClickBurger = (checked) => {
     setIsBurgerOpened(checked);
-  }
+  };
 
   const closePopup = () => {
     setIsInfo(false);
-  }
+  };
 
   React.useEffect(() => {
     const closeByEscape = (evt) => {
@@ -252,13 +232,13 @@ function App() {
                   onClickBurger={onClickBurger}
                   isBurgerOpened={isBurgerOpened}>
                   <Movies
+                  movies={movies}
                     setMovies={setMovies}
                     setIsInfo={setIsInfo}
                     onMovieSave={handleMovieSave}
                     onMovieDelete={handleMovieUnsave}
                     setTooltipStatus={setTooltipStatus}
                     setTooltipMessage={setTooltipMessage}
-                    isLoading={isLoading}
                   />
                 </Layout>
               </ProtectedRoute>

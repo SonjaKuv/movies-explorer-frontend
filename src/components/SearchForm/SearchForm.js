@@ -30,7 +30,7 @@ function SearchForm({ onSubmit, isSubmited, searchText, setSearchText, isShortMo
                 </label>
 
             </div>
-            <span className={searchErrorClass}>Нужно ввести ключевое слово</span>
+            <span className={searchErrorClass}>Необходимо ввести ключевое слово</span>
             <div className='search__horizontal-line'></div>
         </section>
     )
