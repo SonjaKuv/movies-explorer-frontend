@@ -38,7 +38,12 @@ function MovieCard({ movie, onMovieSave, onMovieDelete }) {
           <h3 className='movie-card__title'>{movie.nameRU}</h3>
           <span className='movie-card__time'>{`${hours}ч${mins}м`}</span>
         </div>
-        <button className={movieSaveButtonClassName} onClick={() => handleClick(movie)}></button>
+        {path.pathname === '/movies' && (
+          <button className={movieSaveButtonClassName} onClick={() => handleClick(movie)}></button>
+        )}
+        {path.pathname === '/saved-movies' && (
+          <button className="movie-card__unsave-button button" onClick={() => handleClick(movie)}></button>
+        )}
       </div>
       <a className='link movie-card__link' href={movie.trailerLink} target="_blank" rel="noreferrer">
         <img className='movie-card__image' src={path.pathname === "/movies" ?

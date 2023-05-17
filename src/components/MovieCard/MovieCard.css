@@ -77,3 +77,12 @@
     background-image: url('../../images/save-active.svg');
     border-radius: 50%;
 }
+
+.movie-card__unsave-button {
+    width: 30px;
+    height: 30px;
+    background: none;
+    border: none;
+    background-image: url('../../images/unsave.svg');
+    border-radius: 50%;
+}
