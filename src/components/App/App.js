@@ -156,9 +156,12 @@ function App() {
     setIsLoading(true);
     mainApi.createUser(userName, email, password)
       .then((res) => {
-        setTooltipStatus(true);
-        setTooltipMessage('Вы успешно зарегистрировались!');
-        history('/sign-in');
+        if (res._id) {
+          handleLogin(email, password);
+          history('/movies');
+          setTooltipStatus(true);
+          setTooltipMessage('Вы успешно зарегистрировались!');
+        }
       })
       .then((res) => {
         setUserName('');
