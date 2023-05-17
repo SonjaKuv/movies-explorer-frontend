@@ -25,7 +25,7 @@ function Login({ onLogin, email, password, setEmail, setPassword }) {
         <Form title="Рады видеть!" button="Войти" text="Ещё не зарегистрированы?" onSubmit={handleSubmit}
             route="/sign-up" link="Регистрация" isValidForm={isValidForm}>
             <Input name="email" label="E-mail" type="email" isError={false} placeholder="Введите логин" value={email} setValue={setEmail} setValid={setEmailValid} />
-            <Input name="password" label="Пароль" type="text" isError={false} placeholder="Введите пароль" value={password} setValue={setPassword} setValid={setPasswordValid} />
+            <Input name="password" label="Пароль" type="password" isError={false} placeholder="Введите пароль" value={password} setValue={setPassword} setValid={setPasswordValid} />
         </Form>
     )
 }
