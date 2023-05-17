@@ -2,14 +2,13 @@ import React from 'react';
 import './MovieCard.css';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { calculateDuration } from '../../utils/helpers';
 
 function MovieCard({ movie, onMovieSave, onMovieDelete }) {
   let savedMovies = JSON.parse(localStorage.savedMovies);
   const path = useLocation();
 
   const [isSaved, setIsSaved] = useState(false);
-  const hours = Math.floor(movie.duration / 60);
-  const mins = Math.floor(movie.duration - hours * 60);
   const movieSaveButtonClassName = `movie-card__save-button button ${isSaved && 'movie-card__save-button_active'}`;
 
   React.useEffect(() => {
@@ -36,7 +35,7 @@ function MovieCard({ movie, onMovieSave, onMovieDelete }) {
       <div className='movie-card__header'>
         <div className='movie-card__info'>
           <h3 className='movie-card__title'>{movie.nameRU}</h3>
-          <span className='movie-card__time'>{`${hours}ч${mins}м`}</span>
+          <span className='movie-card__time'>{calculateDuration(movie.duration)}</span>
         </div>
         {path.pathname === '/movies' && (
           <button className={movieSaveButtonClassName} onClick={() => handleClick(movie)}></button>

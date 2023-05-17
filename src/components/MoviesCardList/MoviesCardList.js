@@ -5,6 +5,16 @@ import MovieCard from '../MovieCard/MovieCard';
 import { useState, useEffect } from 'react';
 import useWindowSize from '../../hooks/useWindowSize';
 import { useLocation } from 'react-router-dom';
+import {
+  DESKTOP_MIN_WIDTH,
+  DESKTOP_MOVIES_NUMBER,
+  DESKTOP_ADD_MOVIES_NUMBER,
+  TABLET_MIN_WIDTH,
+  TABLET_MOVIES_NUMBER,
+  TABLET_ADD_MOVIES_NUMBER,
+  MOBILE_MOVIES_NUMBER,
+  MOBILE_ADD_MOVIES_NUMBER,
+} from '../../utils/constants';
 
 function MoviesCardList({ movies, onMovieSave, onMovieDelete }) {
   const path = useLocation();
@@ -13,15 +23,15 @@ function MoviesCardList({ movies, onMovieSave, onMovieDelete }) {
   const [addNumber, setAddNumber] = useState(0);
 
   useEffect(() => {
-    if (windowSize.innerWidth > 768) {
-      setCardsNumber(12);
-      setAddNumber(3);
-    } else if (windowSize.innerWidth <= 768 && windowSize.innerWidth > 650) {
-      setCardsNumber(8);
-      setAddNumber(2);
+    if (windowSize.innerWidth > DESKTOP_MIN_WIDTH) {
+      setCardsNumber(DESKTOP_MOVIES_NUMBER);
+      setAddNumber(DESKTOP_ADD_MOVIES_NUMBER);
+    } else if (windowSize.innerWidth <= DESKTOP_MIN_WIDTH && windowSize.innerWidth > TABLET_MIN_WIDTH) {
+      setCardsNumber(TABLET_MOVIES_NUMBER);
+      setAddNumber(TABLET_ADD_MOVIES_NUMBER);
     } else {
-      setCardsNumber(5);
-      setAddNumber(2);
+      setCardsNumber(MOBILE_MOVIES_NUMBER);
+      setAddNumber(MOBILE_ADD_MOVIES_NUMBER);
     }
   }, [windowSize.innerWidth, movies]);
 
@@ -33,7 +43,7 @@ function MoviesCardList({ movies, onMovieSave, onMovieDelete }) {
     <section className='section movies-list'>
 
       <div className='movies-list__container'>
-        { (movies) && movies.map((movie, i) =>
+        {(movies) && movies.map((movie, i) =>
           <MovieCard
             key={i}
             movie={movie}

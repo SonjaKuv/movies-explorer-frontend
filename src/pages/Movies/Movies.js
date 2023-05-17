@@ -5,6 +5,7 @@ import Preloader from '../../components/Preloader/Preloader';
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList';
 import { useLocation } from 'react-router-dom';
 import moviesApi from '../../utils/MoviesApi';
+import { SHORT_MOVIES_DURATION } from '../../utils/constants';
 
 function Movies({ movies, setMovies, setIsInfo, setTooltipStatus, setTooltipMessage, onMovieSave, onMovieDelete }) {
   const path = useLocation();
@@ -34,7 +35,7 @@ function Movies({ movies, setMovies, setIsInfo, setTooltipStatus, setTooltipMess
   const filterMovies = (text) => {
     let initialMovies = JSON.parse(localStorage.initialMovies);
     let filteredMovies = initialMovies.filter(movie =>
-      ((isShortMovies && movie.duration < 41) || !isShortMovies)
+      ((isShortMovies && movie.duration <= SHORT_MOVIES_DURATION) || !isShortMovies)
       && movie.nameRU.toLowerCase().includes(text.toLowerCase()));
     if (filteredMovies.length === 0) {
       setIsInfo(true);
