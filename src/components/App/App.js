@@ -61,7 +61,7 @@ function App() {
     mainApi
       .setNewUserInfo(userName, email)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
         setTooltipStatus(true);
         setTooltipMessage('Ваши данные обновлены!');
         setIsInfo(true);
