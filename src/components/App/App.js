@@ -16,11 +16,11 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import mainApi from '../../utils/MainApi';
 import Preloader from '../Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
+import { findSavedMovieID } from '../../utils/helpers';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [isBurgerOpened, setIsBurgerOpened] = useState(false);
-  const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userName, setUserName] = React.useState('');
@@ -83,7 +83,6 @@ function App() {
       mainApi.getMovies()
         .then((savedMovies) => {
           setSavedMovies(savedMovies.data);
-          localStorage.savedMovies = JSON.stringify(savedMovies.data);
         })
         .catch((err) => {
           setTooltipStatus(false);
@@ -100,7 +99,6 @@ function App() {
   const handleMovieSave = (movie) => {
     mainApi.createMovie(movie)
       .then((movie) => {
-        localStorage.savedMovies = JSON.stringify([movie.data, ...savedMovies]);
         setSavedMovies([movie.data, ...savedMovies]);
       })
       .catch((err) => {
@@ -111,12 +109,12 @@ function App() {
   };
 
   // удаление фильма из сохраненных
-  const handleMovieUnsave = (id) => {
+  const handleMovieUnsave = (movie) => {
+    let id = findSavedMovieID(savedMovies, movie, path);
     mainApi.deleteMovie(id)
       .then((deletedMovie) => {
         let changedMoviesList = savedMovies.filter((savedMovie) => savedMovie._id !== deletedMovie._id);
         setSavedMovies(changedMoviesList);
-        localStorage.savedMovies = JSON.stringify(changedMoviesList);
       })
       .catch((err) => {
         setTooltipStatus(false);
@@ -138,7 +136,6 @@ function App() {
         localStorage.setItem('shortMoviesState', false);
         localStorage.setItem('initialMovies', []);
         localStorage.setItem('filteredMovies', []);
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
         history('/movies');
       })
       .catch((err) => {
@@ -181,7 +178,6 @@ function App() {
   const handleSignout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('initialMovies');
-    localStorage.removeItem('savedMovies');
     localStorage.removeItem('searchText');
     localStorage.removeItem('shortMoviesState');
     localStorage.removeItem('filteredMovies');
@@ -235,8 +231,7 @@ function App() {
                   onClickBurger={onClickBurger}
                   isBurgerOpened={isBurgerOpened}>
                   <Movies
-                  movies={movies}
-                    setMovies={setMovies}
+                    savedMovies={savedMovies}
                     setIsInfo={setIsInfo}
                     onMovieSave={handleMovieSave}
                     onMovieDelete={handleMovieUnsave}
@@ -253,7 +248,6 @@ function App() {
                   isBurgerOpened={isBurgerOpened}>
                   <SavedMovies
                     savedMovies={savedMovies}
-                    setSavedMovies={setSavedMovies}
                     setIsInfo={setIsInfo}
                     onMovieDelete={handleMovieUnsave}
                     setTooltipStatus={setTooltipStatus}

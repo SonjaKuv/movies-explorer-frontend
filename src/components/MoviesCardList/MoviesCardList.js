@@ -15,8 +15,9 @@ import {
   MOBILE_MOVIES_NUMBER,
   MOBILE_ADD_MOVIES_NUMBER,
 } from '../../utils/constants';
+import { checkIfSaved } from '../../utils/helpers';
 
-function MoviesCardList({ movies, onMovieSave, onMovieDelete }) {
+function MoviesCardList({ movies, savedMovies, onMovieSave, onMovieDelete }) {
   const path = useLocation();
   const windowSize = useWindowSize();
   const [cardsNumber, setCardsNumber] = useState(0);
@@ -47,6 +48,7 @@ function MoviesCardList({ movies, onMovieSave, onMovieDelete }) {
           <MovieCard
             key={i}
             movie={movie}
+            isSaved={checkIfSaved(savedMovies, movie, path)}
             onMovieSave={onMovieSave}
             onMovieDelete={onMovieDelete}
           />

@@ -7,49 +7,55 @@ import { useLocation } from 'react-router-dom';
 import moviesApi from '../../utils/MoviesApi';
 import { SHORT_MOVIES_DURATION } from '../../utils/constants';
 
-function Movies({ movies, setMovies, setIsInfo, setTooltipStatus, setTooltipMessage, onMovieSave, onMovieDelete }) {
+function Movies({ savedMovies, setIsInfo, setTooltipStatus, setTooltipMessage, onMovieSave, onMovieDelete }) {
   const path = useLocation();
+  const [filteredMovies, setFilteredMovies] = React.useState([]);
   const [moviesLoading, setMoviesLoading] = React.useState(false);
   const [searchText, setSearchText] = React.useState(localStorage.searchText);
   const [isSubmited, setIsSubmited] = React.useState(false);
   const [isShortMovies, setIsShortMovies] = React.useState(JSON.parse(localStorage.shortMoviesState));
 
-    // запрос всех фильмов
-    const getMovies = () => {
-      setMoviesLoading(true);
-      moviesApi.getMovies()
-        .then((movies) => {
-          setMovies(movies);
-          localStorage.initialMovies = JSON.stringify(movies);
-        })
-        .catch((err) => {
-          setTooltipStatus(false);
-          setTooltipMessage('Произошла ошибка. ' + err.message);
-          setIsInfo(true);
-        })
-        .finally(() => {
-          setMoviesLoading(false);
-        })
-    };
+  React.useEffect(() => {
+    if (localStorage.filteredMovies) {
+      setFilteredMovies(JSON.parse(localStorage.filteredMovies))
+    }
+  }, []);
+
+  // запрос всех фильмов
+  const getMovies = async () => {
+    setMoviesLoading(true);
+    await moviesApi.getMovies()
+      .then((movies) => {
+        localStorage.initialMovies = JSON.stringify(movies);
+      })
+      .catch((err) => {
+        setTooltipStatus(false);
+        setTooltipMessage('Произошла ошибка. ' + err.message);
+        setIsInfo(true);
+      })
+      .finally(() => {
+        setMoviesLoading(false);
+      })
+  };
 
   const filterMovies = (text) => {
     let initialMovies = JSON.parse(localStorage.initialMovies);
-    let filteredMovies = initialMovies.filter(movie =>
+    let filter = initialMovies.filter(movie =>
       ((isShortMovies && movie.duration <= SHORT_MOVIES_DURATION) || !isShortMovies)
       && movie.nameRU.toLowerCase().includes(text.toLowerCase()));
-    if (filteredMovies.length === 0) {
+    if (filter.length === 0) {
       setIsInfo(true);
       setTooltipStatus(false);
       setTooltipMessage('Ничего не найдено');
     } else {
-      setMovies(filteredMovies);
-      localStorage.filteredMovies = JSON.stringify(filteredMovies);
+      setFilteredMovies(filter);
+      localStorage.filteredMovies = JSON.stringify(filter);
     }
   }
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
-    (!localStorage.initialMovies) && getMovies();
+    (!localStorage.initialMovies) && await getMovies(); // запрашиваем фильмы только если это первый поиск
     setIsSubmited(true);
     if (path.pathname === '/movies') {
       localStorage.searchText = searchText;
@@ -69,7 +75,8 @@ function Movies({ movies, setMovies, setIsInfo, setTooltipStatus, setTooltipMess
         setIsShortMovies={setIsShortMovies} />
       {moviesLoading && <Preloader />}
       <MoviesCardList
-        movies={movies}
+        movies={filteredMovies}
+        savedMovies={savedMovies}
         onMovieSave={onMovieSave}
         onMovieDelete={onMovieDelete}
       />
