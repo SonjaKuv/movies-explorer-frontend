@@ -1,21 +1,48 @@
 import React from 'react';
 import './Profile.css';
 import ProfileInfo from '../../components/ProfileInfo/ProfileInfo';
+import { useState } from 'react';
 
-function Profile() {
-    return (
-      <main className='main profile'>
-        <h1 className='profile__title'>Привет, Виталий!</h1>
-        <div className='profile__container'>
-          <ProfileInfo title='Имя' info='Виталий' placeholder="Введите имя"/>
-          <ProfileInfo title='E-mail' info='pochta@yandex.ru' placeholder="Введите e-mail"/>
-        </div>
-        <div className='profile__container profile__buttons-container'>
-          <button className='profile__button button'>Редактировать</button>
-          <button className='profile__button button profile__button_type_sign-out'>Выйти из аккаунта</button>
-        </div>
-      </main>
-    )
+function Profile({ currentUser, handleSignout, userName, email, setUserName, setEmail, handleNewInfo }) {
+  const [readOnly, setReadOnly] = useState(true);
+  const [isValidForm, setIsValidForm] = useState(false);
+  const [userNameValid, setUserNameValid] = useState(false);
+  const [emailValid, setEmailValid] = useState(false);
+
+  React.useEffect(() => {
+    if (emailValid && userNameValid && (currentUser.name !== userName || currentUser.email !== email)) {
+      setIsValidForm(true);
+    } else {
+      setIsValidForm(false);
+    }
+  }, [emailValid, userNameValid, userName, email]);
+
+  const handleChange = () => {
+    setReadOnly(false);
+  };
+
+  const handleSave = (evt) => {
+    evt.preventDefault();
+    setReadOnly(true);
+    handleNewInfo();
+  }
+  return (
+    <main className='main profile'>
+      <h1 className='profile__title'>Привет, {userName}</h1>
+      <div className='profile__container'>
+        <ProfileInfo title='Имя' name='user_name' info={userName} placeholder="Введите имя" setValue={setUserName} readOnly={readOnly} setValid={setUserNameValid} />
+        <ProfileInfo title='E-mail' name='email' info={email} placeholder="Введите e-mail" setValue={setEmail} readOnly={readOnly} setValid={setEmailValid} />
+      </div>
+      <div className='profile__container profile__buttons-container'>
+        {(readOnly) ? (
+          <button className='profile__button button' onClick={handleChange}>Редактировать</button>
+        ) : (
+          <button className='profile__button button' disabled={!isValidForm} onClick={handleSave}>Сохранить</button>
+        )}
+        <button className='profile__button button profile__button_type_sign-out' onClick={handleSignout}>Выйти из аккаунта</button>
+      </div>
+    </main>
+  )
 }
 
 export default Profile
